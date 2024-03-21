@@ -91,7 +91,7 @@ img {
 
 .arrow {
     position: absolute;
-    background-color: white;
+    background-color: lightgray;
     left: 50%;
     transform: translateX(-50%);
     width: 30px;
