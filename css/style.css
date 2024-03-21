@@ -20,7 +20,6 @@ img {
 }
 
 .images-container {
-
     width: 75%;
     flex-grow: 0;
     flex-shrink: 0;
@@ -29,6 +28,7 @@ img {
     width: 100%;
     height: 100%;
     display: none;
+    position: relative;
 }
 .image.active {
     display: block;
@@ -39,6 +39,33 @@ img {
     object-fit: cover;
 }
 
+.txt{
+    color: white;
+    position: absolute;
+    top: 90%;
+    left: 15%;
+
+}
+
+.title-txt{
+    color: white;
+    position: absolute;
+    top: 85%;
+    left: 70%;
+
+}
+
+
+.txtImg.active {
+    display: none;
+
+}
+
+.txtImg.active {
+    display: block;
+}
+
+/*thumbnails*/
 .thumbnails-container {
     background-color: black;
     width: 25%;
@@ -51,7 +78,7 @@ img {
     width: 100%;
     height: calc(100% / 5);
     background-color: black;
-    opacity: 0.7;
+    opacity: 0.5;
 }
 .thumbnail.active {
     opacity: 1;

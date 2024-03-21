@@ -41,29 +41,90 @@ const images = [
     }
 ];
 
-let activeItem = 0;
+    let activeItem = 0;
 
 
-const imagesContainer = document.querySelector('.images-container');
-const thumbnailsContainer = document.querySelector('.thumbnails-container');
-// 
-images.forEach((image, index) => {
-    const imageElement = document.createElement('div');
-    imageElement.classList.add('image');
-    imageHTML =`<img src="${image.image}">`;
-    imageElement.innerHTML = imageHTML;
-    imagesContainer.appendChild(imageElement);
+    const imagesContainer = document.querySelector('.images-container');
+    const thumbnailsContainer = document.querySelector('.thumbnails-container');
+    // va a popolare dinamicamente il container principale del carosello con le immagini.
+    images.forEach((image, index) => {
 
-    // Thumbnail
-    const thumbnailElement = document.createElement('div');
-    thumbnailElement.classList.add('thumbnail');
-    thumbnailElement.innerHTML = `<img src="${image.image}">`;
-    thumbnailsContainer.appendChild(thumbnailElement);
+        // crea un elemento div per l'immagine  del carosello.
+        const imageElement = document.createElement('div');
+        imageElement.classList.add('image');
+        imageHTML =`<img src="${image.image}"></img>`;
+        // crea l'elemento div per il titolo dell'immagine del carosello.
+        const titleImage = document.createElement('div')
+        titleImage.classList.add('title-txt');
+        titleHTML = `<div>${image.title}</div>`;
+        // crea l'elemento div per il testo dell'immagine del carosello.
+        const textImage = document.createElement('div')
+        textImage.classList.add('txt');
+        textHTML = `<div>${image.text}</div>`;
+        // Aggiunge il titolo e il testo all'elemento dell'immagine
+        titleImage.innerHTML = titleHTML;
+        imageElement.innerHTML = imageHTML;
+        textImage.innerHTML = textHTML;
+        // aggiunge immagine, titolo e testo dell'immagine  al div principale del carosello.
+        imagesContainer.appendChild(imageElement);
+        imageElement.appendChild(titleImage);
+        imageElement.appendChild(textImage);
 
-    thumbnailElement.addEventListener('click', () => {
-        setActiveItem(index);
+
+        
+
+        // va a riempire la sezione delle miniature con le immagini
+        const thumbnailElement = document.createElement('div');
+        thumbnailElement.classList.add('thumbnail');
+        thumbnailElement.innerHTML = `<img src="${image.image}">`;
+        // Aggiunge l'elemento della miniatura al container delle miniature
+        thumbnailsContainer.appendChild(thumbnailElement);
+        // Aggiungi un evento di click alla sezione Thumbnail per impostare l'elemento attivo.
+        thumbnailElement.addEventListener('click', () => {
+            setActiveItem(index);
+        });
     });
-});
 
+
+    // Imposta l'elemento iniziale principale 
+
+        const allImages = document.querySelectorAll('.image');
+        allImages[activeItem].classList.add('active');
+        const allThumbnails = document.querySelectorAll('.thumbnail');
+        allThumbnails[activeItem].classList.add('active');
+    // Aggiunge  un evento listner che resta in ascolto fino al click per portare avanti l'immagine del carosello
+        const nextArrow = document.querySelector('.arrow.next');
+            nextArrow.addEventListener('click', function() {
+            // Rimuove la classe "active" dall'elemento attualmente attivo
+            document.querySelector('.image.active').classList.remove('active');
+            document.querySelector('.thumbnail.active').classList.remove('active');
+            
+            // Incrementa l'elemento attivo o reimposta a 0 se si raggiunge la fine
+            if(activeItem < allImages.length - 1) {
+                activeItem++;
+            } else {
+                activeItem = 0;
+            }
+            // Imposta l'elemento successivo come attivo
+            allImages[activeItem].classList.add('active');
+            allThumbnails[activeItem].classList.add('active');
+    });
+     // Aggiunge  un evento listner che resta in ascolto fino al click per portare avanti l'immagine del carosello
+        const previousArrow = document.querySelector('.arrow.previous');
+            previousArrow.addEventListener('click', function() {
+             // Rimuove la classe "active" dall'elemento attualmente attivo
+            document.querySelector('.image.active').classList.remove('active');
+            document.querySelector('.thumbnail.active').classList.remove('active');
+             // Incrementa l'elemento attivo o reimposta a 0 se si raggiunge la fine
+            if(activeItem > 0) {
+                activeItem--;
+            } else {
+                activeItem = allImages.length - 1;
+            }
+            // Imposta l'elemento successivo come attivo
+            allImages[activeItem].classList.add('active');
+            allThumbnails[activeItem].classList.add('active');
+    });
+ 
 
 
